@@ -1,0 +1,12 @@
+def solution(s):
+    a = s.replace('zero','0')
+    b = a.replace('one','1')
+    c = b.replace('two','2')
+    d = c.replace('three','3')
+    e = d.replace('four','4')
+    f = e.replace('five','5')
+    g = f.replace('six','6')
+    h = g.replace('seven','7')
+    i = h.replace('eight','8')
+    j = i.replace('nine','9')
+    return int(j)
