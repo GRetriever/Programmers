@@ -3,4 +3,4 @@ def solution(participant, completion):
     p = Counter(participant)
     c = Counter(completion)
     m = p-c
-    return ''.join(list(m.keys()))
+    return list(m.keys())[0]
