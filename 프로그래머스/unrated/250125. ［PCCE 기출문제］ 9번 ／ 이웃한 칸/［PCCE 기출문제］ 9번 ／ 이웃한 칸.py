@@ -12,3 +12,10 @@ def solution(board, h, w):
         answer += 1
 
     return answer
+
+#     answer = 0
+#     move = [[-1,0],[1,0],[0,-1],[0,1]]
+#     for i,j in move:
+#         if h+i >= 0 and w+j >= 0 and board[h][w] == board[h+i][w+j]:
+#             answer += 1
+#     return answer
