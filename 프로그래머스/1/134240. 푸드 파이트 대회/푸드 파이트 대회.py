@@ -1,7 +1,7 @@
 def solution(food):
     answer = ''
-    for i in range(1,len(food)):
-        fod = str(i)
-        if food[i] > 1:
-            answer += fod * (food[i]//2)
-    return answer + '0' + answer[::-1]
+    for i,num in enumerate(food):
+        if i == 0:
+            continue
+        answer += str(i)*(num//2)
+    return answer +'0' + answer[::-1]
