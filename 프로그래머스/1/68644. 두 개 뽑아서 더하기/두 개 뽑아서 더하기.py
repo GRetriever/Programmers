@@ -1,7 +1,6 @@
 def solution(numbers):
+    from itertools import combinations
     answer = []
-    for i in range(len(numbers)):
-        for j in range(i+1,len(numbers)):
-            if numbers[i]+numbers[j] not in answer:
-                answer.append(numbers[i]+numbers[j])
-    return sorted(answer)
+    for i,j in combinations(numbers,2):
+        answer.append(i+j)
+    return sorted(set(answer))
