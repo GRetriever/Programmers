@@ -1,13 +1,13 @@
 def solution(k, score):
-    answer = []
     honour = []
-    for i in score:
-        honour.append(i)
-        honour.sort(reverse=True)
-        
-        if len(honour) > k:
-            honour.pop()
-        
-        answer.append(honour[-1])
-        
+    answer = []
+    for num in score:
+        if len(honour) != k:
+            honour.append(num)
+            answer.append(min(honour))
+            honour.sort()
+        else:
+            honour[0] = max(honour[0],num)
+            answer.append(min(honour))
+            honour.sort()
     return answer
