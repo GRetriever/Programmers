@@ -1,7 +1,5 @@
 def solution(nums):
-    pok = set(nums)
-    if len(pok) >= len(nums)/2:
-        return len(nums)/2
-    elif len(pok) < len(nums)/2:
-        return len(pok)
-    
+    if len(set(nums)) >= len(nums)//2:
+        return len(nums)//2
+    else:
+        return len(set(nums))
