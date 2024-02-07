@@ -1,9 +1,6 @@
 def solution(k, m, score):
-    # answer = 0
-    # sor = sorted(score)[::-1]
-    # for i in range(0,len(score),m):
-    #     if len(sor[i:i+m]) == m:
-    #         answer += min(sor[i:i+m])*m
-    # return answer
-
-    return sum((sorted(score)[len(score)%m::m])*m)
+    answer = 0
+    score = sorted(score,reverse=True)
+    for num in score[m-1::m]:
+        answer += num*m
+    return answer
