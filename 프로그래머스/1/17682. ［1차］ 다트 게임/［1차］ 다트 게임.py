@@ -1,7 +1,7 @@
 def solution(dartResult):
     answer = []
-    score = ''
     dict = {'S':1,'D':2,'T':3}
+    score = ''
     for i in dartResult:
         if i.isdigit():
             score += i
@@ -10,7 +10,7 @@ def solution(dartResult):
             score = ''
         elif i == '*':
             answer[-1] *= 2
-            if len(answer) >= 2:
+            if len(answer) > 1:
                 answer[-2] *= 2
         elif i == '#':
             answer[-1] *= -1
