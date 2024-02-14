@@ -1,24 +1,21 @@
 def solution(s):
     answer = 0
+    x = 0
+    y = 0
     first = ''
-    a = 0
-    b = 0
     for i in s:
         if first == '':
             first = i
-            a += 1
+            x += 1
             continue
-        
         if i == first:
-            a += 1
+            x += 1
         else:
-            b += 1
-        
-        if a == b:
-            first = ''
-            a = 0
-            b = 0
+            y += 1
+        if x == y:
             answer += 1
-    if first != '':
+            x,y = 0,0
+            first = ''
+    if x != y:
         answer += 1
     return answer
