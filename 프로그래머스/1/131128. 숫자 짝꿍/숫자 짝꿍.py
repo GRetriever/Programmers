@@ -1,10 +1,11 @@
 def solution(X, Y):
-    answer = []
-    com = (set(X) & set(Y))
-    if not com:
+    xy = set(X) & set(Y)
+    
+    if not xy:
         return '-1'
-    elif len(com) == 1 and'0' in com:
+    if xy == {'0'}:
         return '0'
-    else:
-        result = [i*min(X.count(i),Y.count(i)) for i in com]
-        return ''.join(sorted(result,reverse=True))
+    
+    answer = [i*min(X.count(i),Y.count(i)) for i in xy]
+    return str(''.join(sorted(answer,reverse=True)))
+    
