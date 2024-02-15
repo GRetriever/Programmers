@@ -1,15 +1,16 @@
 def solution(n, lost, reserve):
-    answer = n-len(lost)
-    s = set(lost) & set(reserve)
-    answer += len(s)
-    l = sorted(list(set(lost) - set(s)))
-    r = sorted(list(set(reserve) - set(s)))
-            
-    for i in l:
-        if i-1 in r:
-            r.remove(i-1)
-            answer += 1
-        elif i+1 in r:
-            r.remove(i+1)
-            answer += 1
-    return answer
+    # 자기 옷
+    my = set(reserve) & set(lost)
+    reserve = set(reserve) - set(my)
+    lost = set(lost) - set(my)
+    
+    # 빌리기
+    for i in reserve:
+        f = i-1
+        b = i+1
+        if f in lost:
+            lost.remove(f)
+        elif b in lost:
+            lost.remove(b)
+    
+    return n-len(lost)
