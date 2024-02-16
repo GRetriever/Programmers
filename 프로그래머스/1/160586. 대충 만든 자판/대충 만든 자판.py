@@ -2,17 +2,18 @@ def solution(keymap, targets):
     answer = []
     key = {}
     for i in keymap:
-        for j,alp in enumerate(i):
-            if (alp in key) and key[alp] < j+1:
+        for j,letter in enumerate(i):
+            if letter in key and key[letter] < j+1:
                 continue
-            key[alp] = j+1
-    for k in targets:
+            key[letter] = j+1
+    for target in targets:
         total = 0
-        for l in k:
-            if l in key:
-                total += key[l]
-            else:
-                total = -1
+        for letter in target:
+            if letter not in key:
+                answer.append(-1)
                 break
-        answer.append(total)
+            total += key[letter]
+        else:
+            answer.append(total)
+    
     return answer
