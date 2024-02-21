@@ -1,11 +1,10 @@
 def solution(new_id):
-    answer = ''
     new_id = new_id.lower()
     
-    s = ['.','-','_']
+    s = ['-','_','.']
     id = ''
     for i in new_id:
-        if i in s or i.isnumeric() or i.isalpha():
+        if i.isnumeric() or i.isalpha() or i in s:
             id += i
     
     while '..' in id:
@@ -19,12 +18,12 @@ def solution(new_id):
     if id == '':
         id = 'a'
     
-    if len(id) >= 16:
+    if len(id) > 15:
         id = id[:15]
     if id.endswith('.'):
         id = id[:-1]
     
     while len(id) <= 2:
         id += id[-1]
-
+    
     return id
