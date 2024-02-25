@@ -1,9 +1,9 @@
 def solution(wallpaper):
-    x = []
     y = []
-    for a,i in enumerate(wallpaper):
-        for b,j in enumerate(i):
-            if j == '#':
-                x.append(a)
-                y.append(b)
-    return [min(x),min(y),max(x)+1,max(y)+1]
+    x = []
+    for i,row in enumerate(wallpaper):
+        for j,ele in enumerate(row):
+            if ele == '#':
+                y.append(i)
+                x.append(j)
+    return [min(y),min(x),max(y)+1,max(x)+1]
