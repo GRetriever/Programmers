@@ -1,22 +1,23 @@
-from collections import defaultdict,Counter
+from collections import defaultdict
 def solution(id_list, report, k):
     mail = {name:0 for name in id_list}
-
+    # 신고 받은 수
+    reports = defaultdict(int)
+    # 신고한 수
     dict = defaultdict(list)
-    reported = defaultdict(int)
-    for i in report:
-        l,m = i.split(' ')
-        if m not in dict[l]:
-            dict[l].append(m)
-            reported[m] += 1
-        
-    reported_id = []
-    for user,count in reported.items():
-        if int(count) >= int(k):
-            reported_id.append(user)
+    for i in set(report):
+        name,repo = i.split(' ')
+        dict[name].append(repo)
+        reports[repo] += 1
     
-    for x,y in dict.items():
-        for h in reported_id:
-            if h in y:
-                mail[x] += 1
+    reported_name = []
+    for user,count in reports.items():
+        if count >= k:
+            reported_name.append(user)
+    
+    for a,b in dict.items():
+        for name in reported_name:
+            if name in b:
+                mail[a] += 1
+    
     return list(mail.values())
