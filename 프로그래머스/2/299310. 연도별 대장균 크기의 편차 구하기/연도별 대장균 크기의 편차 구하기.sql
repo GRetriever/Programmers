@@ -1,0 +1,13 @@
+-- 코드를 작성해주세요
+WITH max_size AS (
+    select YEAR(DIFFERENTIATION_DATE) AS YEAR,MAX(SIZE_OF_COLONY) AS MAX
+    from ECOLI_DATA
+    group by 1
+    )
+
+SELECT B.YEAR,
+        (B.MAX - A.SIZE_OF_COLONY) AS YEAR_DEV,
+        A.ID
+FROM ECOLI_DATA A
+JOIN max_size B ON YEAR(A.DIFFERENTIATION_DATE) = B.YEAR
+ORDER BY 1,2
