@@ -1,29 +1,21 @@
 -- 코드를 입력하세요
-WITH DISCOUNT AS (
-    SELECT DURATION_TYPE, (1-(DISCOUNT_RATE * 0.01)) AS RATE
+WITH DISCOUNT AS(
+    SELECT DURATION_TYPE, 1-(DISCOUNT_RATE*0.01) AS RATE
     FROM CAR_RENTAL_COMPANY_DISCOUNT_PLAN
     WHERE CAR_TYPE = '트럭'
+),
+    DATE AS (
+    SELECT A.DAILY_FEE, B.HISTORY_ID, DATEDIFF(B.END_DATE,B.START_DATE) + 1 AS RENTAL_DATE
+    FROM CAR_RENTAL_COMPANY_CAR A
+    JOIN CAR_RENTAL_COMPANY_RENTAL_HISTORY B ON A.CAR_ID = B.CAR_ID
+    WHERE A.CAR_TYPE = '트럭'
     )
-
-SELECT HISTORY_ID, ROUND(DAILY_FEE * CASE
-                        WHEN DIFF >= 90 THEN (SELECT RATE
-                                             FROM DISCOUNT
-                                             WHERE DURATION_TYPE = '90일 이상')
-                        WHEN DIFF >= 30 THEN (SELECT RATE
-                                             FROM DISCOUNT
-                                             WHERE DURATION_TYPE = '30일 이상')
-                        WHEN DIFF >= 7 THEN (SELECT RATE
-                                            FROM DISCOUNT
-                                            WHERE DURATION_TYPE = '7일 이상')
-                         ELSE 1 
-                         END * DIFF) AS FEE
-FROM (SELECT CAR_TYPE,
-            DAILY_FEE,
-            HISTORY_ID,
-            DATEDIFF(END_DATE,START_DATE) + 1 AS DIFF
-      FROM CAR_RENTAL_COMPANY_CAR
-      JOIN CAR_RENTAL_COMPANY_RENTAL_HISTORY
-            USING (CAR_ID)
-     ) AS CAR
-WHERE CAR_TYPE = '트럭'
-ORDER BY FEE DESC, HISTORY_ID DESC
+    
+SELECT HISTORY_ID, ROUND(DAILY_FEE * RENTAL_DATE * CASE
+    WHEN RENTAL_DATE >= 90 THEN (SELECT RATE FROM DISCOUNT WHERE DURATION_TYPE = '90일 이상')
+    WHEN RENTAL_DATE >= 30 THEN (SELECT RATE FROM DISCOUNT WHERE DURATION_TYPE = '30일 이상')
+    WHEN RENTAL_DATE >= 7 THEN (SELECT RATE FROM DISCOUNT WHERE DURATION_TYPE = '7일 이상')
+    ELSE 1
+    END ,0) AS FEE
+FROM DATE
+ORDER BY 2 DESC, 1 DESC
